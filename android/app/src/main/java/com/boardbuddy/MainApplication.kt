@@ -1,4 +1,4 @@
-package com.boardbuddytemp
+package com.boardbuddy
 
 import android.app.Application
 import com.facebook.react.PackageList

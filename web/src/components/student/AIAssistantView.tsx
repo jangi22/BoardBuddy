@@ -258,9 +258,9 @@ export const AIAssistantView: React.FC<{ initialQuestion?: string }> = ({ initia
     }
   };
 
-  const handleAskBuddyAboutWord = (word: string, def?: string) => {
+  const handleAskBuddyAboutWord = (word: string, _def?: string) => {
     setActiveMode('ai');
-    const promptText = `Explain the educational concept "${word}" in the context of the Philippine LET Board Exam. Definition: "${def || ''}". Provide high-yield board pointers and sample questions.`;
+    const promptText = `Explain the educational concept "${word}" in the context of the Philippine LET Board Exam, including core learning theories, classroom applications, high-yield board pointers, and sample LET questions.`;
     handleSend(promptText);
   };
 
@@ -355,8 +355,7 @@ export const AIAssistantView: React.FC<{ initialQuestion?: string }> = ({ initia
       const usableClientKey =
         clientKey &&
         clientKey !== 'undefined' &&
-        clientKey !== 'null' &&
-        !clientKey.startsWith('AQ.')
+        clientKey !== 'null'
           ? clientKey
           : '';
       const headers: Record<string, string> = {

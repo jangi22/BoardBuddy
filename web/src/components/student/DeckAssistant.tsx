@@ -278,9 +278,9 @@ export const DeckAssistant: React.FC<DeckAssistantProps> = ({ S, go }) => {
   };
 
   // Seamless Bridge: ask Buddy AI to rationalize and contextualize this dictionary word for LET
-  const handleAskBuddyAboutWord = (word: string, def?: string) => {
+  const handleAskBuddyAboutWord = (word: string, _def?: string) => {
     setActiveMode('ai');
-    const promptText = `Explain the educational concept "${word}" in the context of the Philippine LET Board Exam. Definition: "${def || ''}". Provide key high-yield board pointers and sample LET questions.`;
+    const promptText = `Explain the educational concept "${word}" in the context of the Philippine LET Board Exam, including core learning theories, classroom applications, high-yield board pointers, and sample LET questions.`;
     handleSend(promptText);
   };
 
@@ -359,8 +359,7 @@ export const DeckAssistant: React.FC<DeckAssistantProps> = ({ S, go }) => {
     const usableClientKey =
       clientKey &&
       clientKey !== 'undefined' &&
-      clientKey !== 'null' &&
-      !clientKey.startsWith('AQ.')
+      clientKey !== 'null'
         ? clientKey
         : '';
 
@@ -403,7 +402,7 @@ export const DeckAssistant: React.FC<DeckAssistantProps> = ({ S, go }) => {
     if (usableClientKey) {
       try {
         const directResp = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${encodeURIComponent(usableClientKey)}`,
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${encodeURIComponent(usableClientKey)}`,
           {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

@@ -4470,7 +4470,7 @@ const handleAIChat = async (req: Request, res: Response) => {
 
   try {
     const candidates = getGeminiApiKeyCandidates(req);
-    const usableKeys = candidates.filter((k) => !k.startsWith('AQ.'));
+    const usableKeys = candidates.filter((k) => k && k !== 'undefined' && k !== 'null');
 
     if (usableKeys.length === 0) {
       return sendLocalFallback('No active Google AI Studio key detected; using local LET board review coach.');
@@ -4500,7 +4500,7 @@ INTELLIGENT INTENT & DIRECT-ANSWER RULES (STRICT):
       ? `Answer this exact student question in your warm study-buddy mentor voice using the 3-part LET Board Review format:\n"${message}"\n\n(Optional background context: ${optionalContext.join(' | ')})`
       : `Answer this exact student question in your warm study-buddy mentor voice using the 3-part LET Board Review format:\n"${message}"`;
 
-    const modelsToTry = ['gemini-2.5-flash', 'gemini-3.1-flash-lite', 'gemini-4-hydrogen'];
+    const modelsToTry = ['gemini-3.5-flash-lite', 'gemini-flash-latest', 'gemini-3.5-flash', 'gemini-3.8-flash'];
     let replyText = '';
     let lastError: any = null;
 
@@ -4564,8 +4564,7 @@ app.post('/api/ai/summarize-topic', async (req: Request, res: Response) => {
   }
 
   const apiKey = getGeminiApiKey(req);
-  // Skip slow external roundtrip if key is missing or clearly not an AIza key
-  if (!apiKey || apiKey.startsWith('AQ.')) {
+  if (!apiKey) {
     const structured = buildTopicSpecificSummary(rawTopic);
     summarizeTopicCache.set(cacheKey, { topic: structured, ts: Date.now() });
     return res.json({ success: true, topic: structured });

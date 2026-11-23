@@ -31,6 +31,8 @@ android/app/build/
 android/build/
 android/.gradle/
 *.apk
+!web/public/boardbuddy.apk
+!public/boardbuddy.apk
 *.aab
 
 # Node
@@ -53,9 +55,7 @@ fastlane/test_output
 # Bundle artifacts
 *.jsbundle
 
-# Temporary screenshots / dumps
-*.png
-*.xml
+# Temporary dumps
 *.tmp
 
 # Web & Desktop ignores

@@ -57,3 +57,24 @@ fastlane/test_output
 *.png
 *.xml
 *.tmp
+
+# Web & Desktop ignores
+**/node_modules/
+**/dist/
+*.exe
+BoardBuddy-Server.exe
+BoardBuddy.exe
+.env
+.env.local
+.env.*
+.env*
+!.env.example
+.aistudio/
+**/.aistudio/
+**/Paste_*
+Paste_*
+*.bundle.cjs
+server.bundle.cjs
+
+
+

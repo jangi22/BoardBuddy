@@ -1,0 +1,6 @@
+{
+  "name": "BoardBuddy – AI-Powered Board Exam Review System",
+  "description": "Comprehensive AI-powered online review platform for professional board examinations with verification, quiz generator, and personalized study recommendations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

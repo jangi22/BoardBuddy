@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BoardBuddy – AI-Powered Board Exam Review System</title>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#16335A" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="BoardBuddy" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/mascot-192.png" />
+    <link rel="shortcut icon" href="/favicon.png" />
+    <script type="module">
+      import RefreshRuntime from "/@react-refresh"
+      RefreshRuntime.injectIntoGlobalHook(window)
+      window.$RefreshReg$ = () => {}
+      window.$RefreshSig$ = () => (type) => type
+      window.__vite_plugin_react_preamble_installed__ = true
+    </script>
+    <script>
+      window.deferredPWAInstallPrompt = null;
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        window.deferredPWAInstallPrompt = e;
+      });
+      if ('serviceWorker' in navigator) {
+        (function () {
+          const CURRENT_CACHE = 'boardbuddy-v12';
+          const hadController = Boolean(navigator.serviceWorker.controller);
+          let reloaded = false;
+
+          navigator.serviceWorker.addEventListener('controllerchange', () => {
+            if (!hadController || reloaded) return;
+            try {
+              if (sessionStorage.getItem('bb_sw_reloaded') === CURRENT_CACHE) return;
+              sessionStorage.setItem('bb_sw_reloaded', CURRENT_CACHE);
+            } catch (_) {}
+            reloaded = true;
+            window.location.reload();
+          });
+
+          const syncServiceWorkerAndCaches = async () => {
+            const isViteDev = Boolean(
+              document.querySelector('script[src*="/src/main.tsx"], script[src*="/@vite/client"]')
+            );
+
+            if ('caches' in window) {
+              try {
+                const keys = await caches.keys();
+                await Promise.all(
+                  keys
+                    .filter((k) => isViteDev || k !== CURRENT_CACHE)
+                    .map((k) => caches.delete(k))
+                );
+              } catch (_) {}
+            }
+
+            if (isViteDev) {
+              try {
+                const regs = await navigator.serviceWorker.getRegistrations();
+                await Promise.all(regs.map((r) => r.unregister()));
+              } catch (_) {}
+              return;
+            }
+
+            navigator.serviceWorker
+              .register('/sw.js', { updateViaCache: 'none' })
+              .then((reg) => reg.update().catch(() => {}))
+              .catch(() => {});
+          };
+
+          if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => {
+              void syncServiceWorkerAndCaches();
+            });
+          } else {
+            void syncServiceWorkerAndCaches();
+          }
+        })();
+      }
+      // Suppress Vite HMR WebSocket connection errors in preview iframe
+      const suppressWebSocketError = (e) => {
+        const msg = e && (e.message || (e.reason && e.reason.message));
+        if (typeof msg === 'string' && (msg.includes('WebSocket') || msg.includes('websocket'))) {
+          if (e.preventDefault) e.preventDefault();
+          if (e.stopImmediatePropagation) e.stopPropagation();
+          return true;
+        }
+        return false;
+      };
+      window.addEventListener('unhandledrejection', suppressWebSocketError);
+      window.addEventListener('error', suppressWebSocketError);
+      
+      // Also monkey-patch console.error for these specific Vite HMR messages
+      const originalConsoleError = console.error;
+      console.error = (...args) => {
+        const msg = args[0];
+        if (typeof msg === 'string' && (msg.includes('[vite] failed to connect to websocket') || msg.includes('WebSocket closed without opened'))) {
+          return;
+        }
+        originalConsoleError.apply(console, args);
+      };
+    </script>
+    <meta name="description" content="Comprehensive AI-powered online review platform for professional board examinations with verification, quiz generator, and personalized study recommendations." />
+    <meta property="og:title" content="BoardBuddy – AI-Powered Board Exam Review System" />
+    <meta property="og:description" content="Comprehensive AI-powered online review platform for professional board examinations with verification, quiz generator, and personalized study recommendations." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-[#E8F1FB] text-[#1B2A41] antialiased selection:bg-[#3E9B52] selection:text-white">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

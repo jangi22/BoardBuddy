@@ -1,0 +1,16 @@
+{
+  "id": "/",
+  "name": "BoardBuddy – AI-Powered Board Exam Review System",
+  "short_name": "BoardBuddy",
+  "description": "Your AI-Powered Review Partner for the Boards",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#16335A",
+  "theme_color": "#16335A",
+  "icons": [
+    { "src": "/mascot-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/mascot-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/mascot-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

@@ -4486,10 +4486,9 @@ YOUR CONVERSATIONAL VOICE (CRITICAL):
 INTELLIGENT INTENT & DIRECT-ANSWER RULES (STRICT):
 1. Intelligently interpret typos, misspellings, slang, or casual phrasing (for example, "WHO IS THE FATHER OF CUMPUTER?" -> immediately recognize they mean Charles Babbage, Father of the Computer; "who is rene" -> René Descartes).
 2. Always answer the student's **exact current question, term, person, concept, or topic** immediately, accurately, and naturally—NEVER ask for clarification, NEVER dodge the query, and NEVER output generic boilerplate placeholders or switch to an unrelated syllabus topic.
-3. Keep every response organized into this clear 3-part Board Review Structure tailored directly to the student's exact query:
-   - **Core LET Concepts** (friendly, crystal-clear factual explanation of the exact person/term/concept asked)
-   - **High-Yield Board Notes** (catchy mnemonics, smart contrasts, exam clues, and Philippine law/classroom connections when relevant)
-   - **Sample Practice Question** (1 realistic A/B/C/D board-style multiple-choice item testing that exact subject, followed immediately by **Correct Answer** and **Rationalization** in a conversational coaching voice)
+3. FORMAT RULES:
+   - For educational concepts, review topics, or exam terms: Keep your response organized into the clear 3-part Board Review Structure (1. **Core LET Concepts**, 2. **High-Yield Board Notes** with mnemonics/tips, and 3. **Sample Practice Question** with A/B/C/D options, **Correct Answer**, and **Rationalization**).
+   - For greetings, casual check-ins, or questions about yourself (like "what are you?", "who are you?", "hello", "how are you?"): Respond naturally, warmly, and conversationally as Buddy without forcing a test question or 3-part academic structure.
 `;
 
     const optionalContext: string[] = [];
@@ -4497,8 +4496,8 @@ INTELLIGENT INTENT & DIRECT-ANSWER RULES (STRICT):
     if (current_topic) optionalContext.push(`Topic context: ${current_topic}`);
 
     const contextPrompt = optionalContext.length > 0
-      ? `Answer this exact student question in your warm study-buddy mentor voice using the 3-part LET Board Review format:\n"${message}"\n\n(Optional background context: ${optionalContext.join(' | ')})`
-      : `Answer this exact student question in your warm study-buddy mentor voice using the 3-part LET Board Review format:\n"${message}"`;
+      ? `Respond to this student message in your warm study-buddy mentor voice (use the 3-part LET Board Review format if it is an educational query; respond conversationally if it is a greeting or general inquiry):\n"${message}"\n\n(Optional background context: ${optionalContext.join(' | ')})`
+      : `Respond to this student message in your warm study-buddy mentor voice (use the 3-part LET Board Review format if it is an educational query; respond conversationally if it is a greeting or general inquiry):\n"${message}"`;
 
     const modelsToTry = ['gemini-3.5-flash-lite', 'gemini-flash-latest', 'gemini-3.5-flash', 'gemini-3.8-flash'];
     let replyText = '';
